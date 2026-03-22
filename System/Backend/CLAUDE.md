@@ -253,11 +253,11 @@ Always validate that required env variables are present at startup. If a require
 
 - Branch naming: `feature/P{phase}-{code}-{short-slug}` (e.g., `feature/P4-12-pdf-generation`)
 - Commit message format (Conventional Commits):
-  - `feat: implement strict grading logic`
-  - `fix: correct power-of-two alternative labeling`
-  - `refactor: extract gradeQuestion dispatcher`
-  - `test: add Gherkin scenarios for lenient grading`
-  - `docs: document CSV input format`
+  - `<task_code> feat: add question creation form`
+  - `<task_code> fix: correct localStorage key collision`
+  - `<task_code> refactor: extract useQuestions hook`
+  - `<task_code> test: add Gherkin scenarios for exam CRUD`
+  - `<task_code> docs: update README with localStorage notes`
 - Commit small and often — one logical change per commit.
 
 ---
