@@ -26,7 +26,7 @@ export interface GeneratedExam {
   questions: Question[];
 }
 
-export interface AnswerKeyRow {
+export interface AnswerKey {
   examNumber: number;
   answers: string[];
 }
@@ -42,4 +42,10 @@ export interface GradingResult {
   examNumber: number;
   scores: number[];
   total: number;
+}
+
+export interface GradeReport {
+  results: GradingResult[];
+  totalStudents: number;
+  averageScore: number;
 }
