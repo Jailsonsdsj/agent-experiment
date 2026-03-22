@@ -1,4 +1,4 @@
-import { Exam, Question } from '../types';
+import type { Exam, Question } from '../types';
 
 const STORAGE_KEYS = {
   QUESTIONS: 'agt:questions',
