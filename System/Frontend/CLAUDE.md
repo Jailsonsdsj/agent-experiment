@@ -33,22 +33,32 @@ Always place files in the correct folder. Never create files outside this struct
 ```
 src/
 ├── assets/           # Static files (images, icons)
-src/components/
-├── DesignPreview.tsx       (dev-only page, stays here)
-└── UI/
-    ├── Badge.tsx
-    ├── Button.tsx
-    ├── Card.tsx
-    ├── FormLayout.tsx
-    ├── Input.tsx
-    ├── Modal.tsx
-    ├── PageHeader.tsx
-    ├── Table.tsx
-    └── Textarea.tsx
-├── hooks/            # Custom React hooks (useQuestions, useExams)
+├── components/
+│   ├── AppLayout.tsx       # Root layout with sidebar navigation
+│   ├── DesignPreview.tsx   # Dev-only design token reference page
+│   └── UI/                 # Reusable UI primitives
+│       ├── AlternativeItem.tsx
+│       ├── Badge.tsx
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       ├── FormLayout.tsx
+│       ├── Input.tsx
+│       ├── Modal.tsx
+│       ├── PageHeader.tsx
+│       ├── Table.tsx
+│       └── Textarea.tsx
+├── hooks/            # Custom React hooks — no JSX, named use<Domain>.ts
+│   └── useQuestionForm.ts
 ├── pages/            # Page-level components mapped to routes
-│   ├── questions/    # Question management pages
-│   └── exams/        # Exam management pages
+│   ├── DashboardPage.tsx
+│   ├── questions/
+│   │   ├── QuestionListPage.tsx
+│   │   └── QuestionCreatePage.tsx
+│   └── exams/
+│       ├── ExamListPage.tsx
+│       ├── ExamFormPage.tsx
+│       ├── ExamDetailPage.tsx
+│       └── GradeReportPage.tsx
 ├── services/
 │   ├── localStorageService.ts   # All localStorage read/write operations
 │   └── apiService.ts            # All Axios calls to the backend

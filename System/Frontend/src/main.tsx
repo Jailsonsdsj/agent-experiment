@@ -6,7 +6,7 @@ import './index.css';
 import AppLayout from './components/AppLayout';
 import DashboardPage from './pages/DashboardPage';
 import QuestionListPage from './pages/questions/QuestionListPage';
-import QuestionFormPage from './pages/questions/QuestionFormPage';
+import QuestionCreatePage from './pages/questions/QuestionCreatePage';
 import ExamListPage from './pages/exams/ExamListPage';
 import ExamFormPage from './pages/exams/ExamFormPage';
 import ExamDetailPage from './pages/exams/ExamDetailPage';
@@ -20,8 +20,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <DashboardPage /> },
       { path: 'questions', element: <QuestionListPage /> },
-      { path: 'questions/new', element: <QuestionFormPage /> },
-      { path: 'questions/:id/edit', element: <QuestionFormPage /> },
+      { path: 'questions/new', element: <QuestionCreatePage /> },
       { path: 'exams', element: <ExamListPage /> },
       { path: 'exams/new', element: <ExamFormPage /> },
       { path: 'exams/:id', element: <ExamDetailPage /> },

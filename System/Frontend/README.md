@@ -48,22 +48,32 @@ Copy `.env.example` to `.env` before starting:
 ```
 src/
 ├── assets/                    Static files (images, icons)
-src/components/
-├── DesignPreview.tsx       (dev-only page, stays here)
-└── UI/
-    ├── Badge.tsx
-    ├── Button.tsx
-    ├── Card.tsx
-    ├── FormLayout.tsx
-    ├── Input.tsx
-    ├── Modal.tsx
-    ├── PageHeader.tsx
-    ├── Table.tsx
-    └── Textarea.tsx
-├── hooks/                     Custom React hooks (useQuestions, useExams)
+├── components/
+│   ├── AppLayout.tsx          Root layout with sidebar navigation
+│   ├── DesignPreview.tsx      Dev-only design token reference page
+│   └── UI/
+│       ├── AlternativeItem.tsx
+│       ├── Badge.tsx
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       ├── FormLayout.tsx
+│       ├── Input.tsx
+│       ├── Modal.tsx
+│       ├── PageHeader.tsx
+│       ├── Table.tsx
+│       └── Textarea.tsx
+├── hooks/
+│   └── useQuestionForm.ts     Form state for question creation
 ├── pages/
-│   ├── questions/             Question management pages
-│   └── exams/                 Exam management pages
+│   ├── DashboardPage.tsx
+│   ├── questions/
+│   │   ├── QuestionListPage.tsx
+│   │   └── QuestionCreatePage.tsx
+│   └── exams/
+│       ├── ExamListPage.tsx
+│       ├── ExamFormPage.tsx
+│       ├── ExamDetailPage.tsx
+│       └── GradeReportPage.tsx
 ├── services/
 │   ├── apiService.ts          Axios instance — all backend calls go here
 │   └── localStorageService.ts All localStorage read/write
