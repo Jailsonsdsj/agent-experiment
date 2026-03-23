@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# Frontend — Exam Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript SPA for creating, managing, and grading academic exams.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Layer         | Technology                              |
+|---------------|-----------------------------------------|
+| Framework     | React 19 + TypeScript (strict)          |
+| Build tool    | Vite 8                                  |
+| Styling       | Tailwind CSS v4 (Vite plugin)           |
+| Routing       | React Router v7                         |
+| HTTP client   | Axios                                   |
+| CSV parsing   | PapaParse                               |
+| Linting       | ESLint + Prettier                       |
 
-## React Compiler
+## Running locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
+cp .env.example .env   # fill in VITE_API_BASE_URL
+npm run dev            # http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Available scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+| Script             | Description                        |
+|--------------------|------------------------------------|
+| `npm run dev`      | Start Vite dev server with HMR     |
+| `npm run build`    | Type-check + production build      |
+| `npm run preview`  | Serve the production build         |
+| `npm run lint`     | Run ESLint                         |
+| `npm run lint:fix` | Auto-fix lint issues               |
+| `npm run format`   | Format with Prettier               |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+## Environment variables
+
+Copy `.env.example` to `.env` before starting:
+
+| Variable            | Description               | Default                 |
+|---------------------|---------------------------|-------------------------|
+| `VITE_API_BASE_URL` | Base URL of the backend API | `http://localhost:3333` |
+
+> Variables must be prefixed with `VITE_` to be exposed to the browser by Vite.
+
+## Folder structure
+
 ```
+src/
+├── assets/                    Static files (images, icons)
+├── components/                Reusable UI primitives
+│   ├── Badge.tsx
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   ├── DesignPreview.tsx      Visual token reference (dev only)
+│   ├── FormLayout.tsx
+│   ├── Input.tsx
+│   ├── Modal.tsx
+│   ├── PageHeader.tsx
+│   ├── Table.tsx
+│   └── Textarea.tsx
+├── hooks/                     Custom React hooks (useQuestions, useExams)
+├── pages/
+│   ├── questions/             Question management pages
+│   └── exams/                 Exam management pages
+├── services/
+│   ├── apiService.ts          Axios instance — all backend calls go here
+│   └── localStorageService.ts All localStorage read/write
+├── types/
+│   └── index.ts               Shared TypeScript interfaces
+└── utils/                     Pure helper functions
+```
+
+## Design system
+
+Tailwind v4 custom tokens are defined in `src/index.css` under `@theme {}`. All tokens are namespaced with `agt-`:
+
+- **Colors**: `bg-agt-base`, `bg-agt-surface`, `text-agt-primary`, `text-agt-error`, etc.
+- **Typography**: `text-agt-h1` → `text-agt-xs`, `font-agt-sans`, `font-agt-mono`
+- **Spacing**: `p-agt-4`, `gap-agt-6`, `m-agt-8`, etc.
+- **Radius**: `rounded-agt-sm` → `rounded-agt-full`
+- **Shadows**: `shadow-agt-sm`, `shadow-agt-md`, `shadow-agt-lg`
+
+## Key conventions
+
+- Never call `localStorage` directly — always go through `localStorageService.ts`
+- Never hardcode API URLs in components — always use `apiService.ts`
+- All component props interfaces are exported and named `{ComponentName}Props`
+- All components use only `agt-*` Tailwind tokens — no hardcoded colors or sizes
+- `strict: true` is enabled — never use implicit `any`
