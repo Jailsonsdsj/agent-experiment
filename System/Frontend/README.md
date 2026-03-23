@@ -48,17 +48,18 @@ Copy `.env.example` to `.env` before starting:
 ```
 src/
 ├── assets/                    Static files (images, icons)
-├── components/                Reusable UI primitives
-│   ├── Badge.tsx
-│   ├── Button.tsx
-│   ├── Card.tsx
-│   ├── DesignPreview.tsx      Visual token reference (dev only)
-│   ├── FormLayout.tsx
-│   ├── Input.tsx
-│   ├── Modal.tsx
-│   ├── PageHeader.tsx
-│   ├── Table.tsx
-│   └── Textarea.tsx
+src/components/
+├── DesignPreview.tsx       (dev-only page, stays here)
+└── UI/
+    ├── Badge.tsx
+    ├── Button.tsx
+    ├── Card.tsx
+    ├── FormLayout.tsx
+    ├── Input.tsx
+    ├── Modal.tsx
+    ├── PageHeader.tsx
+    ├── Table.tsx
+    └── Textarea.tsx
 ├── hooks/                     Custom React hooks (useQuestions, useExams)
 ├── pages/
 │   ├── questions/             Question management pages

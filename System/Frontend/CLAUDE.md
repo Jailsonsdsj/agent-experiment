@@ -33,7 +33,18 @@ Always place files in the correct folder. Never create files outside this struct
 ```
 src/
 ├── assets/           # Static files (images, icons)
-├── components/       # Reusable UI components (Button, Modal, Table, etc.)
+src/components/
+├── DesignPreview.tsx       (dev-only page, stays here)
+└── UI/
+    ├── Badge.tsx
+    ├── Button.tsx
+    ├── Card.tsx
+    ├── FormLayout.tsx
+    ├── Input.tsx
+    ├── Modal.tsx
+    ├── PageHeader.tsx
+    ├── Table.tsx
+    └── Textarea.tsx
 ├── hooks/            # Custom React hooks (useQuestions, useExams)
 ├── pages/            # Page-level components mapped to routes
 │   ├── questions/    # Question management pages
