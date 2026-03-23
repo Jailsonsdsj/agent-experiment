@@ -7,6 +7,7 @@
 ───────────────────────────────────────────── */
 @theme {
   /* ── Colors: Background scale ─────────────── */
+  --color-agt-canvas:         #fff0e5;
   --color-agt-base:           #0F1929;
   --color-agt-surface:        #162236;
   --color-agt-elevated:       #1E2F47;

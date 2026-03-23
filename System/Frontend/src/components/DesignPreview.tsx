@@ -10,6 +10,7 @@ export default function DesignPreview() {
         <div className="mb-agt-4">
           <p className="text-agt-sm text-agt-text-muted mb-agt-3">Backgrounds</p>
           <div className="flex gap-agt-3">
+            <Swatch bg="bg-agt-canvas"       label="agt-canvas"       hex="#fff0e5" dark />
             <Swatch bg="bg-agt-base"         label="agt-base"         hex="#0F1929" />
             <Swatch bg="bg-agt-surface"      label="agt-surface"      hex="#162236" />
             <Swatch bg="bg-agt-elevated"     label="agt-elevated"     hex="#1E2F47" />
@@ -167,11 +168,11 @@ export default function DesignPreview() {
 
 /* ── Internal helpers ───────────────────────────── */
 
-function Swatch({ bg, label, hex }: { bg: string; label: string; hex: string }) {
+function Swatch({ bg, label, hex, dark }: { bg: string; label: string; hex: string; dark?: boolean }) {
   return (
     <div className="flex flex-col gap-agt-1 w-28">
       <div className={`${bg} h-12 rounded-agt-md border border-agt-border`} />
-      <p className="text-agt-xs text-agt-text font-agt-mono">{label}</p>
+      <p className={`text-agt-xs font-agt-mono ${dark ? 'text-agt-base' : 'text-agt-text'}`}>{label}</p>
       <p className="text-agt-xs text-agt-text-muted">{hex}</p>
     </div>
   );
