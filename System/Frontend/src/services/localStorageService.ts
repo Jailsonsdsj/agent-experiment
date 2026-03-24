@@ -47,15 +47,45 @@ export function getExams(): Exam[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.EXAMS);
     return raw ? (JSON.parse(raw) as Exam[]) : [];
-  } catch {
+  } catch (err) {
+    console.error('Failed to load exams from localStorage', err);
     return [];
   }
 }
 
-export function saveExams(exams: Exam[]): void {
+function saveExams(exams: Exam[]): void {
   try {
     localStorage.setItem(STORAGE_KEYS.EXAMS, JSON.stringify(exams));
   } catch {
     throw new Error('Failed to save exams to localStorage');
+  }
+}
+
+export function saveExam(exam: Omit<Exam, 'id' | 'createdAt'>): Exam {
+  const created: Exam = {
+    ...exam,
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+  };
+  const exams = getExams();
+  saveExams([...exams, created]);
+  return created;
+}
+
+export function updateExam(updatedExam: Exam): Exam {
+  const exams = getExams();
+  const index = exams.findIndex((e) => e.id === updatedExam.id);
+  if (index === -1) throw new Error(`Exam with id "${updatedExam.id}" not found`);
+  const next = exams.map((e, i) => (i === index ? updatedExam : e));
+  saveExams(next);
+  return updatedExam;
+}
+
+export function deleteExam(id: string): void {
+  try {
+    const exams = getExams();
+    saveExams(exams.filter((e) => e.id !== id));
+  } catch (err) {
+    console.error(`Failed to delete exam with id "${id}"`, err);
   }
 }
