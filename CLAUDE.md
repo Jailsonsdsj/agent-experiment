@@ -17,9 +17,15 @@ The application enables users to build question banks, assemble exams, generate 
 ```
 agent-experiment/
 ├── System/
-│   ├── frontend/     ← React + TypeScript + Tailwind project
+│   ├── Frontend/     ← React + TypeScript + Tailwind project
 │   └── backend/      ← Express + TypeScript project
 ```
+
+## Frontend Component Convention
+
+- **Non-UI components** use the folder pattern: `components/<ComponentName>/index.tsx`
+- **UI primitives** in `components/UI/` remain flat files (no subfolders)
+- **AppLayout** is an exception — stays as a flat file
 
 ## Git Flow Instruction 
 - Commit format: [<commit_type>]: <Short description >

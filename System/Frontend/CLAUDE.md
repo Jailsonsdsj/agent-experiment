@@ -34,9 +34,12 @@ Always place files in the correct folder. Never create files outside this struct
 src/
 ├── assets/           # Static files (images, icons)
 ├── components/
-│   ├── AppLayout.tsx       # Root layout with sidebar navigation
-│   ├── DesignPreview.tsx   # Dev-only design token reference page
-│   └── UI/                 # Reusable UI primitives
+│   ├── AppLayout.tsx       # Root layout with sidebar navigation (exception: flat file)
+│   ├── DesignPreview/      # Dev-only design token reference page
+│   │   └── index.tsx
+│   ├── QuestionCard/       # Question card with edit/delete actions
+│   │   └── index.tsx
+│   └── UI/                 # Reusable UI primitives (flat files, no subfolders)
 │       ├── AlternativeItem.tsx
 │       ├── Badge.tsx
 │       ├── Button.tsx
@@ -152,7 +155,8 @@ export interface GradingResult {
 - Use **functional components** only. No class components.
 - Use `React.FC<Props>` or explicit return type annotation.
 - Keep components small and focused. If a component exceeds ~150 lines, consider splitting it.
-- All reusable UI primitives (Button, Input, Modal, etc.) live in `src/components/`.
+- **Non-UI components** follow the folder pattern: `components/<ComponentName>/index.tsx`. Exception: `AppLayout.tsx` stays as a flat file.
+- **UI primitives** (Button, Input, Modal, etc.) live flat inside `src/components/UI/` — no subfolders.
 - Page components live in `src/pages/` and are responsible for layout and data orchestration only — not business logic.
 
 ------
