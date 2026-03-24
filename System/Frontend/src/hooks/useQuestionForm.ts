@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Alternative } from '../types';
+import type { Alternative, Question } from '../types';
 
 interface QuestionFormState {
   statement: string;
@@ -10,8 +10,12 @@ function makeAlternative(): Alternative {
   return { id: crypto.randomUUID(), description: '', isCorrect: false };
 }
 
-function initialState(): QuestionFormState {
+function emptyState(): QuestionFormState {
   return { statement: '', alternatives: [makeAlternative(), makeAlternative()] };
+}
+
+function stateFromQuestion(question: Question): QuestionFormState {
+  return { statement: question.statement, alternatives: question.alternatives };
 }
 
 export interface UseQuestionFormReturn {
@@ -23,11 +27,14 @@ export interface UseQuestionFormReturn {
   removeAlternative: (id: string) => void;
   updateAlternative: (id: string, changes: Partial<Alternative>) => void;
   toggleCorrect: (id: string) => void;
+  setFormData: (question: Question) => void;
   reset: () => void;
 }
 
-export function useQuestionForm(): UseQuestionFormReturn {
-  const [state, setState] = useState<QuestionFormState>(initialState);
+export function useQuestionForm(initialData?: Question): UseQuestionFormReturn {
+  const [state, setState] = useState<QuestionFormState>(() =>
+    initialData ? stateFromQuestion(initialData) : emptyState(),
+  );
 
   const isValid =
     state.statement.trim() !== '' &&
@@ -68,8 +75,12 @@ export function useQuestionForm(): UseQuestionFormReturn {
     }));
   }
 
+  function setFormData(question: Question): void {
+    setState(stateFromQuestion(question));
+  }
+
   function reset(): void {
-    setState(initialState());
+    setState(initialData ? stateFromQuestion(initialData) : emptyState());
   }
 
   return {
@@ -81,6 +92,7 @@ export function useQuestionForm(): UseQuestionFormReturn {
     removeAlternative,
     updateAlternative,
     toggleCorrect,
+    setFormData,
     reset,
   };
 }
