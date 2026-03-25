@@ -6,6 +6,7 @@ export interface ExamCardProps {
   exam: Exam;
   onEdit: (id: string) => void;
   onGenerate: (id: string) => void;
+  onGrade: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
@@ -22,7 +23,7 @@ function formatDate(isoString: string): string {
   });
 }
 
-export default function ExamCard({ exam, onEdit, onGenerate, onDelete }: ExamCardProps) {
+export default function ExamCard({ exam, onEdit, onGenerate, onGrade, onDelete }: ExamCardProps) {
   return (
     <div className="bg-agt-surface rounded-agt-lg border border-agt-border shadow-agt-sm flex flex-col min-h-[220px]">
       {/* Body */}
@@ -66,6 +67,12 @@ export default function ExamCard({ exam, onEdit, onGenerate, onDelete }: ExamCar
             variant="secondary"
             size="sm"
             onClick={() => onGenerate(exam.id)}
+          />
+          <Button
+            label="Grade"
+            variant="ghost"
+            size="sm"
+            onClick={() => onGrade(exam.id)}
           />
           <Button
             label="Delete"

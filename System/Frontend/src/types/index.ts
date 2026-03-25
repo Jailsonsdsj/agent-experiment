@@ -51,3 +51,5 @@ export interface GradeReport {
   totalStudents: number;
   averageScore: number;
 }
+
+export type GradingMode = 'strict' | 'lenient';
