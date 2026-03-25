@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { ExamIdentificationMode } from '../types';
+import type { Exam, ExamIdentificationMode } from '../types';
 
 export interface UseExamFormReturn {
   title: string;
@@ -14,11 +14,15 @@ export interface UseExamFormReturn {
   isQuestionSelected: (id: string) => boolean;
 }
 
-export function useExamForm(): UseExamFormReturn {
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [identificationMode, setIdentificationMode] = useState<ExamIdentificationMode>('letters');
-  const [selectedQuestionIds, setSelectedQuestionIds] = useState<string[]>([]);
+export function useExamForm(initialData?: Exam): UseExamFormReturn {
+  const [title, setTitle] = useState<string>(() => initialData?.title ?? '');
+  const [description, setDescription] = useState<string>(() => initialData?.description ?? '');
+  const [identificationMode, setIdentificationMode] = useState<ExamIdentificationMode>(
+    () => initialData?.identificationMode ?? 'letters',
+  );
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<string[]>(
+    () => initialData?.questionIds ?? [],
+  );
 
   const isValid = title.trim() !== '' && selectedQuestionIds.length >= 1;
 

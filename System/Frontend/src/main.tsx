@@ -10,6 +10,7 @@ import QuestionCreatePage from './pages/questions/QuestionCreatePage';
 import QuestionEditPage from './pages/questions/QuestionEditPage';
 import ExamListPage from './pages/exams/ExamListPage';
 import ExamFormPage from './pages/exams/ExamFormPage';
+import ExamEditPage from './pages/exams/ExamEditPage';
 import ExamDetailPage from './pages/exams/ExamDetailPage';
 import GradeReportPage from './pages/exams/GradeReportPage';
 import DesignPreview from './components/DesignPreview';
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: 'questions/edit/:id', element: <QuestionEditPage /> },
       { path: 'exams', element: <ExamListPage /> },
       { path: 'exams/new', element: <ExamFormPage /> },
+      { path: 'exams/:id/edit', element: <ExamEditPage /> },
       { path: 'exams/:id', element: <ExamDetailPage /> },
       { path: 'exams/:id/report', element: <GradeReportPage /> },
       { path: 'design', element: <DesignPreview /> },
