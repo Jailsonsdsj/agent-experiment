@@ -13,7 +13,7 @@ import type { AppWorld } from '../support/world.ts';
 function isValidQuestion(statement: string, alternatives: Alternative[]): boolean {
   return (
     statement.trim() !== '' &&
-    alternatives.every((a) => a.description.trim  () !== '') &&
+    alternatives.every((a) => a.description.trim() !== '') &&
     alternatives.some((a) => a.isCorrect)
   );
 }
