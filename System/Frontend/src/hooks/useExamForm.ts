@@ -3,10 +3,12 @@ import type { ExamIdentificationMode } from '../types';
 
 export interface UseExamFormReturn {
   title: string;
+  description: string;
   identificationMode: ExamIdentificationMode;
   selectedQuestionIds: string[];
   isValid: boolean;
   setTitle: (value: string) => void;
+  setDescription: (value: string) => void;
   setIdentificationMode: (value: ExamIdentificationMode) => void;
   toggleQuestion: (id: string) => void;
   isQuestionSelected: (id: string) => boolean;
@@ -14,6 +16,7 @@ export interface UseExamFormReturn {
 
 export function useExamForm(): UseExamFormReturn {
   const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [identificationMode, setIdentificationMode] = useState<ExamIdentificationMode>('letters');
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<string[]>([]);
 
@@ -31,10 +34,12 @@ export function useExamForm(): UseExamFormReturn {
 
   return {
     title,
+    description,
     identificationMode,
     selectedQuestionIds,
     isValid,
     setTitle,
+    setDescription,
     setIdentificationMode,
     toggleQuestion,
     isQuestionSelected,

@@ -16,6 +16,7 @@ export interface Question {
 export interface Exam {
   id: string;
   title: string;
+  description?: string;
   questionIds: string[];
   identificationMode: ExamIdentificationMode;
   createdAt: string;

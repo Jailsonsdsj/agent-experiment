@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/UI/PageHeader';
 import FormLayout from '../../components/UI/FormLayout';
 import Input from '../../components/UI/Input';
+import Textarea from '../../components/UI/Textarea';
 import Button from '../../components/UI/Button';
 import { useExamForm } from '../../hooks/useExamForm';
 import { useQuestions } from '../../hooks/useQuestions';
@@ -26,10 +27,12 @@ export default function ExamFormPage() {
   const navigate = useNavigate();
   const {
     title,
+    description,
     identificationMode,
     selectedQuestionIds,
     isValid,
     setTitle,
+    setDescription,
     setIdentificationMode,
     toggleQuestion,
     isQuestionSelected,
@@ -47,7 +50,7 @@ export default function ExamFormPage() {
     setSaveError(null);
     if (!isValid) return;
     try {
-      saveExam({ title: title.trim(), identificationMode, questionIds: selectedQuestionIds });
+      saveExam({ title: title.trim(), description: description.trim() || undefined, identificationMode, questionIds: selectedQuestionIds });
       navigate('/exams');
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : 'Failed to save exam.');
@@ -67,6 +70,15 @@ export default function ExamFormPage() {
           placeholder="e.g. Midterm — Introduction to Algorithms"
           required
           error={titleError}
+        />
+
+        <Textarea
+          label="Description"
+          name="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Optional notes about this exam…"
+          rows={3}
         />
 
         {/* Identification mode */}

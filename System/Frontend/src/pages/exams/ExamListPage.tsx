@@ -1,9 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/UI/PageHeader';
 import Button from '../../components/UI/Button';
+import ExamCard from '../../components/ExamCard';
+import { useExams } from '../../hooks/useExams';
 
 export default function ExamListPage() {
   const navigate = useNavigate();
+  const { exams, isLoading, error, isEmpty, deleteExam } = useExams();
+
+  function handleEdit(id: string): void {
+    navigate(`/exams/${id}/edit`);
+  }
+
+  function handleDelete(id: string): void {
+    if (!window.confirm('Are you sure you want to delete this exam?')) return;
+    deleteExam(id);
+  }
 
   return (
     <div>
@@ -18,9 +30,31 @@ export default function ExamListPage() {
           />
         }
       />
-      <p className="text-agt-text-muted font-agt-sans text-agt-body">
-        Exam list will be implemented here.
-      </p>
+
+      {isLoading && (
+        <p className="text-agt-text-muted font-agt-sans text-agt-body">Loading exams…</p>
+      )}
+
+      {!isLoading && error && (
+        <p className="text-agt-error font-agt-sans text-agt-body">{error}</p>
+      )}
+
+      {!isLoading && !error && isEmpty && (
+        <p className="text-agt-text-muted font-agt-sans text-agt-body">No exams created yet.</p>
+      )}
+
+      {!isLoading && !error && !isEmpty && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-agt-4">
+          {exams.map((exam) => (
+            <ExamCard
+              key={exam.id}
+              exam={exam}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
