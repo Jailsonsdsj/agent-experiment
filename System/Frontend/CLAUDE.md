@@ -37,6 +37,8 @@ src/
 │   ├── AppLayout.tsx       # Root layout with sidebar navigation (exception: flat file)
 │   ├── DesignPreview/      # Dev-only design token reference page
 │   │   └── index.tsx
+│   ├── ExamCard/           # Exam card with generate/edit/delete actions
+│   │   └── index.tsx
 │   ├── QuestionCard/       # Question card with edit/delete actions
 │   │   └── index.tsx
 │   └── UI/                 # Reusable UI primitives (flat files, no subfolders)
@@ -51,15 +53,20 @@ src/
 │       ├── Table.tsx
 │       └── Textarea.tsx
 ├── hooks/            # Custom React hooks — no JSX, named use<Domain>.ts
-│   └── useQuestionForm.ts
+│   ├── useExamForm.ts
+│   ├── useExams.ts
+│   ├── useQuestionForm.ts
+│   └── useQuestions.ts
 ├── pages/            # Page-level components mapped to routes
 │   ├── DashboardPage.tsx
 │   ├── questions/
 │   │   ├── QuestionListPage.tsx
-│   │   └── QuestionCreatePage.tsx
+│   │   ├── QuestionCreatePage.tsx
+│   │   └── QuestionEditPage.tsx
 │   └── exams/
 │       ├── ExamListPage.tsx
 │       ├── ExamFormPage.tsx
+│       ├── ExamEditPage.tsx
 │       ├── ExamDetailPage.tsx
 │       └── GradeReportPage.tsx
 ├── services/
@@ -115,6 +122,8 @@ export interface Question {
 export interface Exam {
   id: string;
   title: string;
+  teacherName: string;
+  description?: string;
   questionIds: string[];
   identificationMode: ExamIdentificationMode;
   createdAt: string;
@@ -125,7 +134,7 @@ export interface GeneratedExam {
   questions: Question[];
 }
 
-export interface AnswerKeyRow {
+export interface AnswerKey {
   examNumber: number;
   answers: string[];
 }
@@ -141,6 +150,12 @@ export interface GradingResult {
   examNumber: number;
   scores: number[];
   total: number;
+}
+
+export interface GradeReport {
+  results: GradingResult[];
+  totalStudents: number;
+  averageScore: number;
 }
 ```
 
@@ -185,6 +200,7 @@ export default api;
 ```
 
 - Never hardcode URLs in components or hooks — always use `apiService.ts`.
+- Export named async functions for each endpoint (e.g. `generatePdf`). Each function defines its own payload interface locally in `apiService.ts` and returns a typed promise. Use `responseType: 'blob'` for binary responses (ZIP, PDF).
 
 ------
 

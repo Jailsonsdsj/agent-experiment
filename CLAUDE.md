@@ -18,7 +18,7 @@ The application enables users to build question banks, assemble exams, generate 
 agent-experiment/
 ├── System/
 │   ├── Frontend/     ← React + TypeScript + Tailwind project
-│   └── backend/      ← Express + TypeScript project
+│   └── Backend/      ← Express + TypeScript project
 ```
 
 ## Frontend Component Convention

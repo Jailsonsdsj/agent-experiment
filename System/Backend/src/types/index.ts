@@ -48,3 +48,26 @@ export interface GradingResult {
   scores: number[];
   total: number;
 }
+
+export interface ExamPayload {
+  id: string;
+  title: string;
+  teacherName: string;
+  description?: string;
+  questionIds: string[];
+  identificationMode: ExamIdentificationMode;
+  createdAt: string;
+}
+
+export interface QuestionPayload {
+  id: string;
+  statement: string;
+  alternatives: Alternative[];
+  createdAt: string;
+}
+
+export interface GeneratePdfRequestBody {
+  exam: ExamPayload;
+  questions: QuestionPayload[];
+  copies: number;
+}
