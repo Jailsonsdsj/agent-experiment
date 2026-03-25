@@ -5,6 +5,7 @@ import type { Exam } from '../../types';
 export interface ExamCardProps {
   exam: Exam;
   onEdit: (id: string) => void;
+  onGenerate: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
@@ -21,7 +22,7 @@ function formatDate(isoString: string): string {
   });
 }
 
-export default function ExamCard({ exam, onEdit, onDelete }: ExamCardProps) {
+export default function ExamCard({ exam, onEdit, onGenerate, onDelete }: ExamCardProps) {
   return (
     <div className="bg-agt-surface rounded-agt-lg border border-agt-border shadow-agt-sm flex flex-col min-h-[220px]">
       {/* Body */}
@@ -59,12 +60,20 @@ export default function ExamCard({ exam, onEdit, onDelete }: ExamCardProps) {
           size="sm"
           onClick={() => onEdit(exam.id)}
         />
-        <Button
-          label="Delete"
-          variant="danger"
-          size="sm"
-          onClick={() => onDelete(exam.id)}
-        />
+        <div className="flex items-center gap-agt-2">
+          <Button
+            label="Generate PDF"
+            variant="secondary"
+            size="sm"
+            onClick={() => onGenerate(exam.id)}
+          />
+          <Button
+            label="Delete"
+            variant="danger"
+            size="sm"
+            onClick={() => onDelete(exam.id)}
+          />
+        </div>
       </div>
     </div>
   );

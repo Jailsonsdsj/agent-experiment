@@ -12,6 +12,10 @@ export default function ExamListPage() {
     navigate(`/exams/${id}/edit`);
   }
 
+  function handleGenerate(id: string): void {
+    navigate(`/exams/${id}`);
+  }
+
   function handleDelete(id: string): void {
     if (!window.confirm('Are you sure you want to delete this exam?')) return;
     deleteExam(id);
@@ -50,6 +54,7 @@ export default function ExamListPage() {
               key={exam.id}
               exam={exam}
               onEdit={handleEdit}
+              onGenerate={handleGenerate}
               onDelete={handleDelete}
             />
           ))}
