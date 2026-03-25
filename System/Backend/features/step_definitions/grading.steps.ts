@@ -10,11 +10,31 @@ interface GradingWorld extends AppWorld {
   gradingResults: GradingResult[];
 }
 
+// ── Helpers ────────────────────────────────────────────────────
+
+function parseAnswerList(raw: string): string[] {
+  return raw.split(',').map((a) => a.trim());
+}
+
 Given('the grading service is available', function (this: GradingWorld) {
   this.answerKey = [];
   this.studentResponses = [];
   this.gradingResults = [];
 });
+
+Given(
+  'an answer key for exam {int} with answers {string}',
+  function (this: GradingWorld, examNumber: number, rawAnswers: string) {
+    this.answerKey.push({ examNumber, answers: parseAnswerList(rawAnswers) });
+  },
+);
+
+Given(
+  'student {string} answered exam {int} with {string}',
+  function (this: GradingWorld, studentName: string, examNumber: number, rawAnswers: string) {
+    this.studentResponses.push({ studentName, examNumber, answers: parseAnswerList(rawAnswers) });
+  },
+);
 
 Given(
   'an answer key with question {int} correct answer {string}',
@@ -70,5 +90,24 @@ Then(
       result.scores[questionIndex - 1] < upperBound,
       `Expected score < ${upperBound}, got ${result.scores[questionIndex - 1]}`,
     );
+  },
+);
+
+Then(
+  'the score for {string} on question {int} should be {float}',
+  function (this: GradingWorld, studentName: string, questionNumber: number, expected: number) {
+    const result = this.gradingResults.find((r) => r.studentName === studentName);
+    assert.ok(result, `No result found for student "${studentName}"`);
+    const score = result.scores[questionNumber - 1];
+    assert.equal(score, expected, `Score for Q${questionNumber}: expected ${expected}, got ${score}`);
+  },
+);
+
+Then(
+  'the total for {string} should be {float}',
+  function (this: GradingWorld, studentName: string, expected: number) {
+    const result = this.gradingResults.find((r) => r.studentName === studentName);
+    assert.ok(result, `No result found for student "${studentName}"`);
+    assert.equal(result.total, expected, `Total for "${studentName}": expected ${expected}, got ${result.total}`);
   },
 );

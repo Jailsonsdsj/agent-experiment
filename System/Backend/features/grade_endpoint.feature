@@ -13,7 +13,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1,q2
       Ana Silva,1,A,B
       """
-    When I POST to \/grade with gradingMode "strict"
+    When I POST to /grade with gradingMode "strict"
     Then the response status should be 200
     And the response should be a JSON array with 1 result
     And the result for "Ana Silva" should have total 2
@@ -29,7 +29,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1
       Rita Ferreira,1,A
       """
-    When I POST to \/grade with gradingMode "lenient"
+    When I POST to /grade with gradingMode "lenient"
     Then the response status should be 200
     And the result for "Rita Ferreira" should have total 0.67
 
@@ -45,7 +45,7 @@ Feature: POST /grade endpoint
       Ana Silva,1,A,B
       João Costa,1,A,D
       """
-    When I POST to \/grade with gradingMode "strict"
+    When I POST to /grade with gradingMode "strict"
     Then the response status should be 200
     And the response should be a JSON array with 2 results
 
@@ -57,7 +57,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1
       Ana Silva,1,A
       """
-    When I POST to \/grade without the answerKey file
+    When I POST to /grade without the answerKey file
     Then the response status should be 400
     And the grading response body should contain an "error" field
 
@@ -67,7 +67,7 @@ Feature: POST /grade endpoint
       exam_number,q1
       1,A
       """
-    When I POST to \/grade without the responses file
+    When I POST to /grade without the responses file
     Then the response status should be 400
     And the grading response body should contain an "error" field
 
@@ -82,7 +82,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1
       Ana Silva,1,A
       """
-    When I POST to \/grade without a gradingMode
+    When I POST to /grade without a gradingMode
     Then the response status should be 400
     And the grading response body should contain an "error" field
 
@@ -97,7 +97,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1
       Ana Silva,1,A
       """
-    When I POST to \/grade with gradingMode "fuzzy"
+    When I POST to /grade with gradingMode "fuzzy"
     Then the response status should be 400
     And the grading response body should contain an "error" field
 
@@ -113,7 +113,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1
       Ana Silva,1,A
       """
-    When I POST to \/grade with gradingMode "strict"
+    When I POST to /grade with gradingMode "strict"
     Then the response status should be 500
     And the grading response body should contain an "error" field
 
@@ -128,7 +128,7 @@ Feature: POST /grade endpoint
       student_name,exam_number,q1
       Ana Silva,1,A
       """
-    When I POST to \/grade with gradingMode "strict"
+    When I POST to /grade with gradingMode "strict"
     Then the response status should be 500
     And the grading response body should contain an "error" field
 
@@ -142,6 +142,6 @@ Feature: POST /grade endpoint
       """
       student_name,exam_number,q1
       """
-    When I POST to \/grade with gradingMode "strict"
+    When I POST to /grade with gradingMode "strict"
     Then the response status should be 500
     And the grading response body should contain an "error" field

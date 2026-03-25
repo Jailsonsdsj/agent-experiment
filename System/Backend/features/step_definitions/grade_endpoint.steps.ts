@@ -6,8 +6,8 @@ import app from '../support/testApp';
 // ── World ──────────────────────────────────────────────────────
 
 interface GradeEndpointWorld {
-  answerKeyCsv: string | null;
-  responsesCsv: string | null;
+  answerKeyCsv: string | null | undefined;
+  responsesCsv: string | null | undefined;
   responseStatus: number;
   responseJson: unknown;
 }
@@ -18,7 +18,6 @@ Given(
   'an answer key CSV with content:',
   function (this: GradeEndpointWorld, docString: string) {
     this.answerKeyCsv = docString.trim();
-    if (this.responsesCsv === undefined) this.responsesCsv = null;
   },
 );
 
@@ -26,7 +25,6 @@ Given(
   'a responses CSV with content:',
   function (this: GradeEndpointWorld, docString: string) {
     this.responsesCsv = docString.trim();
-    if (this.answerKeyCsv === undefined) this.answerKeyCsv = null;
   },
 );
 
@@ -40,14 +38,14 @@ async function postToGrade(
 ): Promise<void> {
   let req = request(app).post('/grade');
 
-  if (includeAnswerKey && world.answerKeyCsv !== null) {
+  if (includeAnswerKey && world.answerKeyCsv != null) {
     req = req.attach('answerKey', Buffer.from(world.answerKeyCsv), {
       filename: 'answer_key.csv',
       contentType: 'text/csv',
     });
   }
 
-  if (includeResponses && world.responsesCsv !== null) {
+  if (includeResponses && world.responsesCsv != null) {
     req = req.attach('responses', Buffer.from(world.responsesCsv), {
       filename: 'responses.csv',
       contentType: 'text/csv',
