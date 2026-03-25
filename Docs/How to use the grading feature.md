@@ -1,10 +1,8 @@
-## Testing the grading feature
+## How to use the grading feature
 
 ### Step 1 — Get the answer key
 
 When you generate a PDF from any exam, the downloaded ZIP contains `answer_key.csv`. That file is ready to upload directly. It looks like:
-
-
 
 ```
 exam_number,q1,q2,q3,q4
@@ -20,8 +18,6 @@ Each row is one randomized copy. The answers are the correct labels for that cop
 ### Step 2 — Create a student responses CSV
 
 This simulates what a Google Forms export produces. The required columns are `student_name`, `exam_number`, then one column per question (`q1`, `q2`, …) in the same order as the answer key.
-
-
 
 ```
 student_name,exam_number,q1,q2,q3,q4

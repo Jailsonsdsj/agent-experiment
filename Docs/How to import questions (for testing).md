@@ -16,8 +16,6 @@ One row per question, with these columns:
 
 ### Example file
 
-
-
 ```csv
 statement,alt_1,alt_2,alt_3,alt_4,alt_5,correct
 "What is 2 + 2?","3","4","5","6",,"2"
