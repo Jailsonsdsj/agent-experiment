@@ -27,11 +27,13 @@ export default function ExamFormPage() {
   const navigate = useNavigate();
   const {
     title,
+    teacherName,
     description,
     identificationMode,
     selectedQuestionIds,
     isValid,
     setTitle,
+    setTeacherName,
     setDescription,
     setIdentificationMode,
     toggleQuestion,
@@ -50,7 +52,7 @@ export default function ExamFormPage() {
     setSaveError(null);
     if (!isValid) return;
     try {
-      saveExam({ title: title.trim(), description: description.trim() || undefined, identificationMode, questionIds: selectedQuestionIds });
+      saveExam({ title: title.trim(), teacherName: teacherName.trim(), description: description.trim() || undefined, identificationMode, questionIds: selectedQuestionIds });
       navigate('/exams');
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : 'Failed to save exam.');
@@ -70,6 +72,15 @@ export default function ExamFormPage() {
           placeholder="e.g. Midterm — Introduction to Algorithms"
           required
           error={titleError}
+        />
+
+        <Input
+          label="Teacher name"
+          name="teacherName"
+          value={teacherName}
+          onChange={(e) => setTeacherName(e.target.value)}
+          placeholder="e.g. Prof. Jane Smith"
+          required
         />
 
         <Textarea

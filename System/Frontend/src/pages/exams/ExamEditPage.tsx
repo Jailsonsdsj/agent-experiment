@@ -33,11 +33,13 @@ export default function ExamEditPage() {
 
   const {
     title,
+    teacherName,
     description,
     identificationMode,
     selectedQuestionIds,
     isValid,
     setTitle,
+    setTeacherName,
     setDescription,
     setIdentificationMode,
     toggleQuestion,
@@ -60,6 +62,7 @@ export default function ExamEditPage() {
         id: exam.id,
         createdAt: exam.createdAt,
         title: title.trim(),
+        teacherName: teacherName.trim(),
         description: description.trim() || undefined,
         identificationMode,
         questionIds: selectedQuestionIds,
@@ -92,6 +95,15 @@ export default function ExamEditPage() {
           placeholder="e.g. Midterm — Introduction to Algorithms"
           required
           error={titleError}
+        />
+
+        <Input
+          label="Teacher name"
+          name="teacherName"
+          value={teacherName}
+          onChange={(e) => setTeacherName(e.target.value)}
+          placeholder="e.g. Prof. Jane Smith"
+          required
         />
 
         <Textarea
