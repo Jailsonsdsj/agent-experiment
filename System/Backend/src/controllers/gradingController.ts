@@ -22,11 +22,6 @@ export function gradeExam(req: Request, res: Response, next: NextFunction): void
       return;
     }
 
-    if (gradingMode === 'lenient') {
-      res.status(501).json({ error: 'Lenient grading mode is not yet implemented.' });
-      return;
-    }
-
     const answerKey = parseAnswerKey(answerKeyFile.buffer.toString('utf-8'));
     const responses = parseStudentResponses(responsesFile.buffer.toString('utf-8'));
     const results = gradeExams(answerKey, responses, gradingMode as GradingMode);
