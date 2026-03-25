@@ -20,6 +20,7 @@ export default function AppLayout() {
           <NavItem to="/" label="Dashboard" end />
           <NavItem to="/questions" label="Questions" />
           <NavItem to="/exams" label="Exams" />
+          <NavItem to="/admin" label="Admin" />
           <NavItem to="/design" label="Design Preview" />
         </nav>
       </aside>

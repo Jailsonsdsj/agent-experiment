@@ -13,6 +13,7 @@ import ExamFormPage from './pages/exams/ExamFormPage';
 import ExamEditPage from './pages/exams/ExamEditPage';
 import ExamDetailPage from './pages/exams/ExamDetailPage';
 import GradeReportPage from './pages/exams/GradeReportPage';
+import AdminPage from './pages/AdminPage';
 import DesignPreview from './components/DesignPreview';
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: 'exams/:id/edit', element: <ExamEditPage /> },
       { path: 'exams/:id', element: <ExamDetailPage /> },
       { path: 'exams/:id/report', element: <GradeReportPage /> },
+      { path: 'admin', element: <AdminPage /> },
       { path: 'design', element: <DesignPreview /> },
     ],
   },
