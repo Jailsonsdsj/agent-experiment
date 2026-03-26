@@ -20,8 +20,9 @@ export default function AppLayout() {
           <NavItem to="/" label="Dashboard" end />
           <NavItem to="/questions" label="Questions" />
           <NavItem to="/exams" label="Exams" />
-          <NavItem to="/admin" label="Admin" />
-          <NavItem to="/design" label="Design Preview" />
+          <hr className="border-agt-border my-agt-1" />
+          <NavItem to="/admin" label="Admin" ghost />
+          <NavItem to="/design" label="Design Preview" ghost />
         </nav>
       </aside>
 
@@ -33,7 +34,7 @@ export default function AppLayout() {
   );
 }
 
-function NavItem({ to, label, end }: { to: string; label: string; end?: boolean }) {
+function NavItem({ to, label, end, ghost }: { to: string; label: string; end?: boolean; ghost?: boolean }) {
   return (
     <NavLink
       to={to}
@@ -41,11 +42,17 @@ function NavItem({ to, label, end }: { to: string; label: string; end?: boolean 
       className={({ isActive }) =>
         [
           'flex items-center px-agt-3 py-agt-2 rounded-agt-md',
-          'text-agt-sm font-medium font-agt-sans',
           'transition-colors duration-150',
-          isActive
-            ? 'bg-agt-elevated text-agt-primary'
-            : 'text-agt-text-muted hover:bg-agt-elevated hover:text-agt-text',
+          ghost
+            ? 'text-agt-xs font-normal font-agt-sans text-agt-text-muted hover:text-agt-text'
+            : 'text-agt-sm font-medium font-agt-sans',
+          ghost && isActive
+            ? 'text-agt-text'
+            : !ghost && isActive
+              ? 'bg-agt-elevated text-agt-primary'
+              : !ghost
+                ? 'text-agt-text-muted hover:bg-agt-elevated hover:text-agt-text'
+                : '',
         ].join(' ')
       }
     >
