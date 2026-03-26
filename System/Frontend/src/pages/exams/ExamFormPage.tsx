@@ -42,6 +42,7 @@ export default function ExamFormPage() {
   const { questions, isLoading, isEmpty } = useQuestions();
 
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [questionQuery, setQuestionQuery] = useState('');
 
   const titleError =
     title.length > 0 && title.trim().length < 3
@@ -145,32 +146,51 @@ export default function ExamFormPage() {
           )}
 
           {!isLoading && !isEmpty && (
-            <div className="flex flex-col gap-agt-2 max-h-72 overflow-y-auto rounded-agt-md border border-agt-border">
-              {questions.map((question) => {
-                const selected = isQuestionSelected(question.id);
-                return (
-                  <label
-                    key={question.id}
-                    className={[
-                      'flex items-start gap-agt-3 px-agt-4 py-agt-3 cursor-pointer',
-                      'border-b border-agt-border last:border-0',
-                      'transition-colors duration-150',
-                      selected ? 'bg-agt-primary-subtle' : 'hover:bg-agt-elevated',
-                    ].join(' ')}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selected}
-                      onChange={() => toggleQuestion(question.id)}
-                      className="mt-agt-1 w-agt-4 h-agt-4 shrink-0 cursor-pointer accent-[var(--color-agt-primary)]"
-                    />
-                    <span className="text-agt-sm font-agt-sans text-agt-text line-clamp-2 leading-snug">
-                      {question.statement}
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
+            <>
+              <input
+                className="input"
+                type="search"
+                placeholder="Search questions…"
+                value={questionQuery}
+                onChange={(e) => setQuestionQuery(e.target.value)}
+                aria-label="Search questions"
+              />
+              <div className="flex flex-col max-h-72 overflow-y-auto rounded-agt-md border border-agt-border">
+                {questions
+                  .filter((q) => q.statement.toLowerCase().includes(questionQuery.toLowerCase()))
+                  .map((question) => {
+                    const selected = isQuestionSelected(question.id);
+                    return (
+                      <label
+                        key={question.id}
+                        className={[
+                          'flex items-start gap-agt-3 px-agt-4 py-agt-3 cursor-pointer',
+                          'border-b border-agt-border last:border-0',
+                          'transition-colors duration-150',
+                          selected ? 'bg-agt-primary-subtle' : 'hover:bg-agt-elevated',
+                        ].join(' ')}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selected}
+                          onChange={() => toggleQuestion(question.id)}
+                          className="mt-agt-1 w-agt-4 h-agt-4 shrink-0 cursor-pointer accent-[var(--color-agt-primary)]"
+                        />
+                        <span className="text-agt-sm font-agt-sans text-agt-text line-clamp-2 leading-snug">
+                          {question.statement}
+                        </span>
+                      </label>
+                    );
+                  })}
+                {questionQuery && !questions.some((q) =>
+                  q.statement.toLowerCase().includes(questionQuery.toLowerCase()),
+                ) && (
+                  <p className="px-agt-4 py-agt-3 text-agt-sm text-agt-text-muted font-agt-sans">
+                    No questions match your search.
+                  </p>
+                )}
+              </div>
+            </>
           )}
         </div>
 
