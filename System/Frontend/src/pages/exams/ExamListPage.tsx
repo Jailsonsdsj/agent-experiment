@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/UI/PageHeader';
 import Button from '../../components/UI/Button';
@@ -20,10 +21,16 @@ export default function ExamListPage() {
     navigate(`/exams/${id}/report`);
   }
 
+  const [query, setQuery] = useState('');
+
   function handleDelete(id: string): void {
     if (!window.confirm('Are you sure you want to delete this exam?')) return;
     deleteExam(id);
   }
+
+  const filtered = exams.filter((e) =>
+    e.title.toLowerCase().includes(query.toLowerCase()),
+  );
 
   return (
     <div>
@@ -39,6 +46,19 @@ export default function ExamListPage() {
         }
       />
 
+      {!isLoading && !error && !isEmpty && (
+        <div className="mb-agt-5">
+          <input
+            className="input max-w-sm"
+            type="search"
+            placeholder="Search exams…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-label="Search exams"
+          />
+        </div>
+      )}
+
       {isLoading && (
         <p className="text-agt-text-muted font-agt-sans text-agt-body">Loading exams…</p>
       )}
@@ -51,9 +71,13 @@ export default function ExamListPage() {
         <p className="text-agt-text-muted font-agt-sans text-agt-body">No exams created yet.</p>
       )}
 
-      {!isLoading && !error && !isEmpty && (
+      {!isLoading && !error && !isEmpty && filtered.length === 0 && (
+        <p className="text-agt-text-muted font-agt-sans text-agt-body">No exams match your search.</p>
+      )}
+
+      {!isLoading && !error && filtered.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-agt-4">
-          {exams.map((exam) => (
+          {filtered.map((exam) => (
             <ExamCard
               key={exam.id}
               exam={exam}
